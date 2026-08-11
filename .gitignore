@@ -1,0 +1,17 @@
+# Node / npm
+node_modules/
+npm-debug.log*
+package-lock.json
+
+# Temp / OS
+*.tmp
+*.log
+Thumbs.db
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Hermes / local
+.hermes/

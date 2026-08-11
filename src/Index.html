@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <?!= include('Styles'); ?>
+</head>
+<body>
+
+  <!-- ── กำลังตรวจสอบสิทธิ์ ─────────────────────────── -->
+  <div id="view-splash" class="login-wrap">
+    <div class="login-logo"><img src="<?= LOGO_URL ?>" alt="โลโก้โรงเรียน"></div>
+    <h1><?= SCHOOL_NAME ?></h1>
+    <p><?= SCHOOL_SUB ?><br>ปีการศึกษา <?= ACADEMIC_YEAR ?></p>
+    <div class="spinner" style="border-color:rgba(255,255,255,.3);border-top-color:#fff"></div>
+    <div class="login-note">กำลังตรวจสอบสิทธิ์การใช้งาน…</div>
+  </div>
+
+  <!-- ── ไม่มีสิทธิ์ ─────────────────────────────────── -->
+  <div id="view-denied" class="login-wrap hidden">
+    <div class="login-logo"><img src="<?= LOGO_URL ?>" alt="โลโก้โรงเรียน"></div>
+    <h1>ไม่สามารถเข้าใช้งานได้</h1>
+    <p id="denied-msg">อีเมลนี้ยังไม่มีสิทธิ์ใช้งานระบบ</p>
+    <div class="login-note">หากคิดว่าเป็นข้อผิดพลาด กรุณาติดต่อผู้ดูแลระบบ (ครูเหวิน)<br>
+      หรือเปลี่ยนไปใช้บัญชี Google ที่ได้รับสิทธิ์</div>
+  </div>
+
+  <!-- ── แอปหลัก ────────────────────────────────────── -->
+  <div id="view-app" class="hidden">
+    <div id="header" class="app-header">
+      <div class="logo" onclick="renderHome()"><img src="<?= LOGO_URL ?>" alt=""></div>
+      <div class="title" onclick="renderHome()">
+        <b><?= SCHOOL_NAME ?></b>
+        <span id="user-name"></span>
+      </div>
+      <button class="icon-btn" title="แจ้งเตือน" onclick="openNotifications()">
+        🔔<span class="badge" id="bell-badge" style="display:none"></span>
+      </button>
+    </div>
+    <div id="content"></div>
+  </div>
+
+  <?!= include('JavaScript'); ?>
+</body>
+</html>

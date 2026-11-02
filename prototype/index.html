@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>แผนการจัดการเรียนรู้ — ระบบโรงเรียน</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body class="light">
+<header class="app-header">
+  <div class="header-inner">
+    <h1><i class="ph-fill ph-student"></i> ระบบส่งแผนการจัดการเรียนรู้</h1>
+    <button onclick="toggleTheme()" aria-label="เปลี่ยนธีม" class="theme-btn"><i class="ph ph-moon"></i> <span>เปลี่ยนโหมด</span></button>
+  </div>
+</header>
+
+<main class="container" id="app">
+  <!-- Teacher submission -->
+  <section id="teacher-view" class="card">
+    <h2><i class="ph-fill ph-chalkboard-teacher"></i> ส่งแผนการจัดการเรียนรู้</h2>
+    <form id="submit-form" onsubmit="event.preventDefault(); submitPlan();">
+      <label for="teacher">ชื่อครู</label>
+      <select id="teacher" required>
+        <option value="">-- เลือกชื่อครู --</option>
+        <option>นางสาวณัฐวดี ใจดี</option><option>นายสมชาย พรมมา</option><option>นางสาววิมล จันทร์แก้ว</option>
+        <option>นายประวิทย์ ศรีสุข</option><option>นางสาวรัตนา วงศ์ทอง</option><option>นายณรงค์ ใจเย็น</option>
+        <option>นางสาวพัชราภรณ์ แสงจันทร์</option><option>นายธนากร รักษ์ดี</option>
+      </select>
+
+      <label for="month">เดือนที่ส่งแผน</label>
+      <select id="month" required>
+        <option value="">-- เลือกเดือน --</option>
+        <option>มกราคม</option><option>กุมภาพันธ์</option><option>มีนาคม</option><option>เมษายน</option>
+        <option>พฤษภาคม</option><option>มิถุนายน</option><option>กรกฎาคม</option><option>สิงหาคม</option>
+        <option>กันยายน</option><option>ตุลาคม</option><option>พฤศจิกายน</option><option>ธันวาคม</option>
+      </select>
+
+      <label for="subject">รายวิชา</label>
+      <select id="subject" required>
+        <option value="">-- เลือกรายวิชา --</option>
+        <option>คณิตศาสตร์</option><option>ภาษาไทย</option><option>ภาษาอังกฤษ</option>
+        <option>วิทยาศาสตร์</option><option>สังคมศึกษา</option><option>สุขศึกษา</option>
+      </select>
+
+      <label for="file-input">ไฟล์แผนการจัดการเรียนรู้ (PDF / DOCX)</label>
+      <input type="file" id="file-input" accept=".pdf,.docx" onchange="handleFile(this)">
+      <div id="upload-status" class="upload-status"></div>
+
+      <p class="note">กำหนดส่ง: <strong>วันที่ 5 ของทุกเดือน</strong> (สำหรับแผนเดือนถัดไป)</p>
+      <button type="submit" class="btn-primary">ส่งแผนการจัดการเรียนรู้</button>
+    </form>
+  </section>
+
+  <!-- Director login -->
+  <section id="director-login" class="card hidden">
+    <h2><i class="ph-fill ph-lock-key"></i> เข้าสู่ระบบผู้บริหาร</h2>
+    <form onsubmit="event.preventDefault(); loginDirector();">
+      <label for="pwd">รหัสผ่าน</label>
+      <input type="password" id="pwd" placeholder="รหัสผ่าน" required>
+      <button type="submit" class="btn-primary">เข้าสู่ระบบ</button>
+    </form>
+    <p class="message" id="login-msg"></p>
+  </section>
+
+  <!-- Director dashboard -->
+  <section id="director-dash" class="hidden">
+    <div class="dash-header">
+      <h2><i class="ph-fill ph-chalkboard-teacher"></i> แดชบอร์ดผู้บริหาร</h2>
+      <button onclick="logout()" class="btn-outline">ออกจากระบบ</button>
+    </div>
+    <div class="summary-cards">
+      <div class="card-sum"><span>8</span> จำนวนครู</div>
+      <div class="card-sum"><span id="sum-submitted">0</span> รายการที่ส่งแล้ว</div>
+      <div class="card-sum"><span id="sum-pending">0</span> รอตรวจสอบ</div>
+      <div class="card-sum"><span id="sum-approved">0</span> อนุมัติแล้ว</div>
+      <div class="card-sum"><span id="sum-revision">0</span> ส่งกลับแก้ไข</div>
+    </div>
+    <table id="submissions-table">
+      <thead><tr>
+        <th>ชื่อครู</th><th>รายวิชา</th><th>เดือนที่ส่งแผน</th><th>วันที่ส่ง</th><th>ชื่อไฟล์</th><th>สถานะ</th><th>จัดการ</th>
+      </tr></thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </section>
+</main>
+
+<footer>ต้นแบบโปรโตไทป์ — ไม่ได้เชื่อมต่อ Google Drive / Sheets จริง</footer>
+<script src="app.js"></script>
+</body>
+</html>
